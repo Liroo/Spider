@@ -1,0 +1,4 @@
+[submodule "dependencies/libbson-1.8.0"]
+	path = dependencies/libbson-1.8.0
+	url = git://github.com/mongodb/libbson.git
+	branch = r1.8

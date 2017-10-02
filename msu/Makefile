@@ -30,7 +30,7 @@ CC = g++
 
 AR = ar
 
-CP = cp
+CP = cp -r
 
 FLAGS = -W -Werror -Wextra -Wall
 
