@@ -21,7 +21,7 @@ OBJ_GEN = $(addprefix $(OBJ_GENDIR), $(SRC_GEN:.cpp=.o))
 # Utility
 
 INCDIRS := -I./include -I../shared
-LIBS := -L../lib -lmsu
+LIBS := -L../lib -lmsu -lboost_system
 
 CXX = g++
 
