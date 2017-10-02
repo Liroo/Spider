@@ -3,6 +3,6 @@
 #ifndef MSU_HPP
 # define MSU_HPP
 
-void test();
+# include "core.hpp"
 
 #endif

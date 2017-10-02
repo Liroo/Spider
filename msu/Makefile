@@ -16,7 +16,7 @@ SRC_GENDIR := src/
 OBJ_GENDIR := $(OBJ_DIR)src/
 
 SRC_GEN = \
-	msu.cpp
+	core.cpp
 
 OBJ_GEN = $(addprefix $(OBJ_GENDIR), $(SRC_GEN:.cpp=.o))
 
