@@ -1,4 +1,4 @@
-[submodule "dependencies/libbson-1.8.0"]
-	path = dependencies/libbson-1.8.0
-	url = git://github.com/mongodb/libbson.git
+[submodule "dependencies/mongo-c-driver-1.8.0"]
+	path = dependencies/mongo-c-driver-1.8.0
+	url = git@github.com:mongodb/mongo-c-driver.git
 	branch = r1.8
