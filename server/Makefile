@@ -21,8 +21,7 @@ OBJ_GEN = $(addprefix $(OBJ_GENDIR), $(SRC_GEN:.cpp=.o))
 # Utility
 
 INCDIRS := -I./include -I../shared
-LIBS := -L../lib -lmsu -lboost_system
-
+LDFLAGS := -L../lib -lmsu `pkg-config --libs libbsoncxx libmongocxx`
 CXX = g++
 
 FLAGS = -W -Werror -Wextra -Wall
@@ -31,7 +30,7 @@ FLAGS = -W -Werror -Wextra -Wall
 FLAGS += $(DEBUG)
 FLAGS += -std=c++11
 
-CXXFLAGS := $(INCDIRS)
+CXXFLAGS := $(INCDIRS) `pkg-config --cflags libbsoncxx libmongocxx`
 
 RM		:= rm -rf
 
@@ -54,7 +53,7 @@ $(OBJ_GENDIR)%.o: $(SRC_GENDIR)%.cpp
 	@$(PRINTF) "$(GREEN_R)$(ECHO) $(CLEAR)\t$<\n"
 
 $(NAME_BIN): intro $(OBJ_GEN)
-	@$(CXX) -o $(NAME_BIN) $(LIBS) $(OBJ_GEN) $(CXXFLAGS)
+	@$(CXX) -o $(NAME_BIN) $(LDFLAGS) $(OBJ_GEN) $(CXXFLAGS)
 	@$(PRINTF) "$(GREEN_R)Done $(CLEAR)\n"
 
 clean:

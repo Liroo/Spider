@@ -34,7 +34,6 @@ namespace MSU {
   class Core {
 
   public:
-    Core(const int serverPort = 1024);
     Core(const int serverPort = 1024, const std::string dbIp = "localhost:27017", const std::string dbName = "tmp");
     ~Core();
   public:

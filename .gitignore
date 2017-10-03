@@ -33,3 +33,4 @@
 
 # Header on compilation
 shared/*
+build/*
