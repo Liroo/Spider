@@ -32,13 +32,13 @@ AR = ar
 
 CP = cp -r
 
-FLAGS = -W -Werror -Wextra -Wall
+FLAGS = -W -Werror -Wextra -Wall -Wno-unused-command-line-argument
 
 # if debug is activated
 FLAGS += $(DEBUG)
 FLAGS += -std=c++11
 
-CXXFLAGS = $(FLAGS) $(INC)
+CXXFLAGS = $(FLAGS) $(INC) `pkg-config --cflags --libs libmongocxx`
 
 RM		:= rm -rf
 
