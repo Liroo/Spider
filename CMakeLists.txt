@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9.3)
 set(CMAKE_BUILD_TYPE Release)
-project(server)
+project(cpp_spider_server)
 
 set 			(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}")
 
@@ -25,22 +25,22 @@ message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
 message(status "** Boost Libraries: ${Boost_LIBRARY_DIRS}")
 message(status "** Boost Libraries: ${Boost_LIBRARIES}")
 
-set			(SRC          main.cpp
-                      server.cpp)
+set			(SRC          main.cpp)
 
-#set			(CORE_SRC     core.cpp)
+set			(MSU_SRC      core.cpp
+                      network.cpp
+                      session.cpp)
 
 
-PREPEND(RELEASE_SRC "src" ${SRC})
-#PREPEND(RELEASE_CORE_SRC "../msu/src" ${CORE_SRC})
+PREPEND(RELEASE_SRC "server/src" ${SRC})
+PREPEND(RELEASE_MSU_SRC "msu/src" ${MSU_SRC})
 
 include_directories(${Boost_INCLUDE_DIRS})
-#include_directories(../msu/include)
-include_directories(include)
+include_directories(msu/include)
 
-add_executable(server ${RELEASE_SRC} ${RELEASE_CORE_SRC})
+add_executable(cpp_spider_server ${RELEASE_SRC} ${RELEASE_MSU_SRC})
 
-target_link_libraries(server boost_system boost_regex boost_date_time boost_thread boost_serialization ${BOOST_LIBRARIES})
+target_link_libraries(cpp_spider_server boost_system boost_regex boost_date_time boost_thread boost_serialization ${BOOST_LIBRARIES})
 
 #######################
 # Flags
