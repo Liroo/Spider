@@ -16,26 +16,31 @@ ENDFUNCTION(PREPEND)
 # Resolve dependencies
 #######################
 
-find_package(Boost REQUIRED COMPONENTS)
+set(Boost_USE_STATIC_LIBS        ON) # only find static libs
+set(Boost_USE_MULTITHREADED      ON)
+
+find_package(Boost REQUIRED COMPONENTS system regex date_time thread serialization)
 
 message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
 message(status "** Boost Libraries: ${Boost_LIBRARY_DIRS}")
 message(status "** Boost Libraries: ${Boost_LIBRARIES}")
 
-set			(SRC          main.cpp)
+set			(SRC          main.cpp
+                      server.cpp)
 
-set			(CORE_SRC     core.cpp)
+#set			(CORE_SRC     core.cpp)
 
 
 PREPEND(RELEASE_SRC "src" ${SRC})
-PREPEND(RELEASE_CORE_SRC "../msu/src" ${CORE_SRC})
+#PREPEND(RELEASE_CORE_SRC "../msu/src" ${CORE_SRC})
 
 include_directories(${Boost_INCLUDE_DIRS})
-include_directories(../shared)
+#include_directories(../msu/include)
+include_directories(include)
 
 add_executable(server ${RELEASE_SRC} ${RELEASE_CORE_SRC})
 
-target_link_libraries(server ${BOOST_LIBRARIES})
+target_link_libraries(server boost_system boost_regex boost_date_time boost_thread boost_serialization ${BOOST_LIBRARIES})
 
 #######################
 # Flags
