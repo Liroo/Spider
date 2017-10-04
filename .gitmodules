@@ -1,8 +1,0 @@
-[submodule "dependencies/mongo-c-driver-1.8.0"]
-	path = dependencies/mongo-c-driver-1.8.0
-	url = git@github.com:mongodb/mongo-c-driver.git
-	branch = r1.8
-[submodule "dependencies/mongo-cxx-driver-stable"]
-	path = dependencies/mongo-cxx-driver-stable
-	url = git@github.com:mongodb/mongo-cxx-driver.git
-	branch = releases/stable

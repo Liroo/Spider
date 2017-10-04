@@ -21,7 +21,7 @@ OBJ_GEN = $(addprefix $(OBJ_GENDIR), $(SRC_GEN:.cpp=.o))
 # Utility
 
 INCDIRS := -I./include -I../shared
-LDFLAGS := -L../lib -lmsu `pkg-config --libs libbsoncxx libmongocxx`
+LDFLAGS := -L../lib -lmsu
 CXX = g++
 
 FLAGS = -W -Werror -Wextra -Wall
@@ -30,7 +30,7 @@ FLAGS = -W -Werror -Wextra -Wall
 FLAGS += $(DEBUG)
 FLAGS += -std=c++11
 
-CXXFLAGS := $(INCDIRS) `pkg-config --cflags libbsoncxx libmongocxx`
+CXXFLAGS := $(INCDIRS)
 
 RM		:= rm -rf
 

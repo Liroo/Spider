@@ -26,8 +26,6 @@ INCDIR := ./include/
 SHARED_INCDIR := ../shared/
 INC := -I$(INCDIR) -I$(SHARED_INCDIR)
 
-PKG_FLAGS := PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/Users/pierre/Epitech/CPP/Spider/build/mongo-cxx-driver-stable/lib/pkgconfig:/Users/pierre/Epitech/CPP/Spider/build/mongo-c-driver-1.8.0/lib/pkgconfig pkg-config --cflags --libs libbsoncxx libmongocxx
-
 CC = g++
 
 AR = ar
@@ -40,7 +38,7 @@ FLAGS = -W -Werror -Wextra -Wall
 FLAGS += $(DEBUG)
 FLAGS += -std=c++11
 
-CXXFLAGS = $(FLAGS) $(INC) `pkg-config --cflags libbsoncxx libmongocxx`
+CXXFLAGS = $(FLAGS) $(INC)
 
 RM		:= rm -rf
 
