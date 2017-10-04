@@ -27,26 +27,30 @@
       listen(); // spawn the server
 
 */
+# define PLUGIN_BEFORE 0x00
+# define PLUGIN_ENDPOINT 0x02
+# define PLUGIN_AFTER 0x03
 namespace MSU {
   class Core {
 
   public:
-    Core(const int serverPort = 1024);
     Core(const int serverPort = 1024, const std::string dbIp = "localhost:27017", const std::string dbName = "tmp");
     ~Core();
   public:
-    void all(std::vector<MSU::pluginFunc>, const int);
-    void use(std::vector<MSU::pluginFunc>);
+    void use(std::vector<MSU::pluginFunc>, const int);
     // void req(); // plug-in to req a client using chrono
     bool listen();
   //   static requestRaw(ip, req); // static util to request a client
 
+  public:
+    typedef std::vector<std::vector<MSU::pluginFunc> > pluginVector;
+    typedef std::map<int, MSU::Core::pluginVector> pluginMap;
   private:
     int _serverPort;
     std::string _dbIp;
     std::string _dbName;
 
-    std::map<std::string, std::vector<std::vector<MSU::pluginFunc>>> _plugins;
+    MSU::Core::pluginMap _plugins;
   }; // class Core
 }; // namespace MSU
 
