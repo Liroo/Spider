@@ -26,6 +26,7 @@ message(status "** Boost Libraries: ${Boost_LIBRARY_DIRS}")
 message(status "** Boost Libraries: ${Boost_LIBRARIES}")
 
 set			(SRC          main.cpp)
+set			(TEST          testssl.cpp)
 
 set			(MSU_SRC      core.cpp
                       network.cpp
@@ -34,13 +35,16 @@ set			(MSU_SRC      core.cpp
 
 PREPEND(RELEASE_SRC "server/src" ${SRC})
 PREPEND(RELEASE_MSU_SRC "msu/src" ${MSU_SRC})
+PREPEND(TEST "msu/src" ${TEST})
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(msu/include)
 
+#${RELEASE_SRC} ${RELEASE_MSU_SRC}
+
 add_executable(cpp_spider_server ${RELEASE_SRC} ${RELEASE_MSU_SRC})
 
-target_link_libraries(cpp_spider_server boost_system boost_regex boost_date_time boost_thread boost_serialization ${BOOST_LIBRARIES})
+target_link_libraries(cpp_spider_server ssl crypto boost_system boost_regex boost_date_time boost_thread boost_serialization ${BOOST_LIBRARIES})
 
 #######################
 # Flags
