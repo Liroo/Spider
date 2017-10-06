@@ -30,23 +30,26 @@
 
 typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
 
-class Session {
+class Session : public std::enable_shared_from_this<Session> {
 
 public:
-  Session(boost::asio::io_service& io_service, boost::asio::ssl::context& context);
+  Session(boost::asio::io_service&, boost::asio::ssl::context&);
   ~Session();
-  ssl_socket::lowest_layer_type& socket();
-  void handle_handshake(const boost::system::error_code& error);
+
   void          start();
-  void handle_read(const boost::system::error_code& error, size_t bytes_transferred);
-  void handle_write(const boost::system::error_code& error);
+  void          handle_handshake(const boost::system::error_code&);
+  void          handle_read(const boost::system::error_code&, size_t );
+  void          handle_write(const boost::system::error_code&);
+  ssl_socket::lowest_layer_type& socket();
 
 private:
 
 
-  ssl_socket   socket_;
   enum          { max_length = 1024 };
-  char          data_[max_length];
+  ssl_socket   socket_;
+  boost::asio::streambuf msg;
+  std::string msg_st;
+  std::string _ip;
 
 };
 

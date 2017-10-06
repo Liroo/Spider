@@ -25,7 +25,7 @@ message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
 message(status "** Boost Libraries: ${Boost_LIBRARY_DIRS}")
 message(status "** Boost Libraries: ${Boost_LIBRARIES}")
 
-set			(SRC          main.cpp)
+set			(SRC          mainTestsServer.cpp)
 set			(TEST          testssl.cpp)
 
 set			(MSU_SRC      core.cpp
