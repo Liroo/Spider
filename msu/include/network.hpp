@@ -24,23 +24,23 @@
 # include <boost/asio/ssl.hpp>
 # include <boost/date_time/posix_time/posix_time.hpp>
 # include "session.hpp"
+namespace MSU {
+  class Network {
 
-class Network {
+  public:
+    Network(int port, boost::asio::io_service& io_service);
+    ~Network();
 
-public:
-  Network(boost::asio::io_service& io_service, unsigned short port);
-  ~Network();
+    std::string get_password() const;
+    void handle_accept(Session* new_session, const boost::system::error_code& error);
+    void run(std::function<void(Session *)> handle_session);
 
-  void run();
-  std::string get_password() const;
-  void handle_accept(Session* new_session, const boost::system::error_code& error);
-
-
-private:
-
-  boost::asio::io_service& io_service_;
-  boost::asio::ip::tcp::acceptor  acceptor_;
-  boost::asio::ssl::context context_;
-};
+  private:
+    boost::asio::io_service& _io_service;
+    boost::asio::ip::tcp::acceptor _acceptor;
+    boost::asio::ssl::context _context;
+    std::function<void(Session *)> _handle_session;
+  }; // class Network
+}; // namespace MSU
 
 #endif

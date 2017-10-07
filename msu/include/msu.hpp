@@ -4,5 +4,6 @@
 # define MSU_HPP
 
 # include "core.hpp"
+# include "network.hpp"
 
 #endif

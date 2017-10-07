@@ -16,7 +16,8 @@ static MSU::Core::pluginMap defaultPluginMap() {
 }
 
 // constructor
-Core::Core(const int serverPort, const std::string dbIp, const std::string dbName) {
+Core::Core(const int serverPort, const std::string dbIp, const std::string dbName):
+  _network(serverPort, _io_service) {
   _serverPort = serverPort;
   _dbIp = dbIp;
   _dbName = dbName;
@@ -33,6 +34,14 @@ void Core::use(std::vector<MSU::pluginFunc> plugins, const int position) {
   _plugins[position].push_back(plugins);
 }
 
-bool Core::listen() {
-  return true;
+void Core::_handle_session(Session *session) {}
+
+void Core::run() {
+  try {
+    _network.run([&](Session *session) -> void {
+      _handle_session(session);
+    });
+  } catch (boost::system::system_error& e) {
+    std::cout << "nigga" << std::endl;
+  }
 }

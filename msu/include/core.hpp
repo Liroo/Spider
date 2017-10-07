@@ -7,6 +7,7 @@
 # include <map>
 # include <vector>
 # include "plugin.hpp"
+# include "network.hpp"
 
 /*
   class Core - MUTLIPLE SERVER USAGE
@@ -39,7 +40,8 @@ namespace MSU {
   public:
     void use(std::vector<MSU::pluginFunc>, const int);
     // void req(); // plug-in to req a client using chrono
-    bool listen();
+    void run();
+    void _handle_session(Session *session);
   //   static requestRaw(ip, req); // static util to request a client
 
   public:
@@ -49,6 +51,8 @@ namespace MSU {
     int _serverPort;
     std::string _dbIp;
     std::string _dbName;
+    boost::asio::io_service _io_service;
+    MSU::Network _network;
 
     MSU::Core::pluginMap _plugins;
   }; // class Core
