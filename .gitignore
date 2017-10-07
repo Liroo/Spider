@@ -34,3 +34,10 @@
 # Header on compilation
 shared/*
 build/*
+
+# Cmake generation
+CMakeFiles
+Makefile
+CMakeCache.txt
+cpp_spider_server
+cmake_install.cmake
