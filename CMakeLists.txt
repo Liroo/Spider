@@ -52,7 +52,7 @@ include_directories(msu/include)
 
 add_executable(cpp_spider_server ${RELEASE_SRC} ${RELEASE_MSU_SRC})
 
-target_link_libraries(cpp_spider_server ${Boost_LIBRARY_DIRS} ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES})
+target_link_libraries(cpp_spider_server crypto ${Boost_LIBRARY_DIRS} ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES})
 
 #######################
 # Flags
