@@ -78,3 +78,7 @@ void Session::handle_write(const boost::system::error_code& error){
 boost::uuids::uuid Session::getUniqueId() {
   return (this->_uniqueId);
 }
+
+void Session::setMacAddress(std::string mac) {
+  this->_mac = mac;
+}

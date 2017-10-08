@@ -52,6 +52,7 @@ public:
   void handle_write(const boost::system::error_code&);
   ssl_socket::lowest_layer_type& socket();
   boost::uuids::uuid getUniqueId();
+  void setMacAddress(std::string mac);
 
 private:
 
@@ -61,6 +62,7 @@ private:
   boost::asio::streambuf msg;
   std::string msg_st;
   std::string _ip;
+  std::string _mac;
   boost::uuids::uuid _uniqueId;
 
 };
