@@ -38,7 +38,8 @@ set			(TEST          testssl.cpp)
 set			(MSU_SRC      core.cpp
                       network.cpp
                       session.cpp
-                      plugin/key.cpp)
+                      plugin/key.cpp
+                      plugin/timestamp.cpp)
 
 
 PREPEND(RELEASE_SRC "server/src" ${SRC})
