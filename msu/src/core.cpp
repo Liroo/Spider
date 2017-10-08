@@ -77,12 +77,6 @@ std::string Core::_handle_log(Session *s, std::string req) {
 #include <bsoncxx/builder/stream/document.hpp>
 #include <bsoncxx/types.hpp>
 
-#include <mongocxx/client.hpp>
-#include <mongocxx/instance.hpp>
-#include <mongocxx/uri.hpp>
-
-#include <boost/lexical_cast.hpp>
-
 void Core::_handle_session(Session *session) {
   auto client = _pool.acquire();
   mongocxx::database db = (*client)[_dbName];
@@ -106,6 +100,6 @@ void Core::run() {
       _handle_session(session);
     });
   } catch (boost::system::system_error& e) {
-    std::cout << "nigga" << std::endl;
+    return ;
   }
 }
