@@ -44,6 +44,7 @@ std::string Core::_handle_log(Session *s, std::string req) {
   auto client = _pool.acquire();
   mongocxx::database db = (*client)[_dbName];
 
+  std::cout << req << std::endl;
   int next = 0;
   // how works next
   // 0 -> OK
@@ -72,7 +73,27 @@ std::string Core::_handle_log(Session *s, std::string req) {
   return res;
 }
 
+
+#include <bsoncxx/builder/stream/document.hpp>
+#include <bsoncxx/types.hpp>
+
+#include <mongocxx/client.hpp>
+#include <mongocxx/instance.hpp>
+#include <mongocxx/uri.hpp>
+
+#include <boost/lexical_cast.hpp>
+
 void Core::_handle_session(Session *session) {
+  auto client = _pool.acquire();
+  mongocxx::database db = (*client)[_dbName];
+  mongocxx::collection coll = db["sessions"];
+
+  auto builder = bsoncxx::builder::stream::document{};
+  bsoncxx::document::value doc_value = builder
+    << "uniq_id" << boost::uuids::to_string(session->getUniqueId())
+    << bsoncxx::builder::stream::finalize;
+  coll.insert_one(std::move(doc_value));
+
   session->set_read_callback([&](Session *s, std::string req) -> std::string {
     return _handle_log(s, req);
   });

@@ -5,6 +5,9 @@
 
 Session::Session(boost::asio::io_service& io_service, boost::asio::ssl::context& context)
     : socket_(io_service, context){
+  boost::uuids::uuid uniqueId = boost::uuids::random_generator()();
+  this->_uniqueId = uniqueId;
+
 }
 
 Session::~Session(){
@@ -24,8 +27,6 @@ void Session::start(){
 
 void Session::handle_handshake(const boost::system::error_code& error){
   if (!error) {
-    boost::uuids::uuid uniqueId = boost::uuids::random_generator()();
-    this->_uniqueId = uniqueId;
     std::cout << "[" << this->_uniqueId << "] is now authentified." << std::endl;
     boost::asio::async_read_until(this->socket_, this->msg, "",
       boost::bind(&Session::handle_read, this,
