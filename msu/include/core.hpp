@@ -29,9 +29,8 @@
       listen(); // spawn the server
 
 */
-# define PLUGIN_BEFORE 0x00
-# define PLUGIN_ENDPOINT 0x02
-# define PLUGIN_AFTER 0x03
+# define PLUGIN_ENDPOINT 0x00
+# define PLUGIN_AFTER 0x01
 namespace MSU {
   class Core {
 
