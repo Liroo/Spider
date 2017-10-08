@@ -25,8 +25,12 @@
 #include <memory>
 #include <utility>
 #include <boost/asio.hpp>
+#include <boost/asio/streambuf.hpp>
+#include <boost/asio/buffer.hpp>
 #include <boost/bind.hpp>
 #include <boost/asio/ssl.hpp>
+#include <functional>
+#include <string>
 
 typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
 
@@ -36,17 +40,19 @@ public:
   Session(boost::asio::io_service&, boost::asio::ssl::context&);
   ~Session();
 
-  void          start();
-  void          handle_handshake(const boost::system::error_code&);
-  void          handle_read(const boost::system::error_code&, size_t );
-  void          handle_write(const boost::system::error_code&);
+  void start();
+  void handle_handshake(const boost::system::error_code&);
+
+  void set_read_callback(std::function<std::string(Session *, std::string)>);
+  void handle_read(const boost::system::error_code&, size_t);
+  void handle_write(const boost::system::error_code&);
   ssl_socket::lowest_layer_type& socket();
 
 private:
 
-
-  enum          { max_length = 1024 };
-  ssl_socket   socket_;
+  std::function<std::string(Session *, std::string)> _read_callback;
+  enum { max_length = 1024 };
+  ssl_socket socket_;
   boost::asio::streambuf msg;
   std::string msg_st;
   std::string _ip;

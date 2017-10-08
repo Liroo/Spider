@@ -6,6 +6,7 @@
 # include <string>
 # include <map>
 # include <vector>
+# include <iostream>
 # include "plugin.hpp"
 # include "network.hpp"
 
@@ -38,14 +39,13 @@ namespace MSU {
     Core(const int serverPort = 1024, const std::string dbIp = "localhost:27017", const std::string dbName = "tmp");
     ~Core();
   public:
-    void use(std::vector<MSU::pluginFunc>, const int);
-    // void req(); // plug-in to req a client using chrono
+    void use(MSU::Plugin*, const int);
     void run();
     void _handle_session(Session *session);
-  //   static requestRaw(ip, req); // static util to request a client
+    std::string _handle_log(Session *s, std::string res);
 
   public:
-    typedef std::vector<std::vector<MSU::pluginFunc> > pluginVector;
+    typedef std::vector<MSU::Plugin*> pluginVector;
     typedef std::map<int, MSU::Core::pluginVector> pluginMap;
   private:
     int _serverPort;

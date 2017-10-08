@@ -4,15 +4,13 @@
 # define PLUGIN_HPP
 
 # include <functional>
-# include <map>
+# include <string>
 
 namespace MSU {
-  typedef std::map<std::string, std::string> req;
-  typedef std::function<int (MSU::req &req, void *)> pluginFunc;
-
   class Plugin {
   public:
-    virtual int plugin(MSU::req &, void *) = 0;
+    virtual bool test(std::string) = 0;
+    virtual int exec(std::string) = 0;
   };
 };
 

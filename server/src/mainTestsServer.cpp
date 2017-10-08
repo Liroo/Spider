@@ -1,11 +1,16 @@
 // main
 
-#include "msu.hpp"
+#include <vector>
 #include <boost/asio.hpp>
+#include "msu.hpp"
+#include "plugin/key.hpp"
 
 int main() {
-  MSU::Core test(1024);
+  MSU::Core core(1024);
+  Key *pluginKey;
 
-  test.run();
+  pluginKey = new Key();
+  core.use(pluginKey, PLUGIN_ENDPOINT);
+  core.run();
   return (0);
 }

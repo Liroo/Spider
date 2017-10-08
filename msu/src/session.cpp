@@ -23,40 +23,43 @@ void Session::start(){
 }
 
 void Session::handle_handshake(const boost::system::error_code& error){
-  if (!error)
-  {
+  if (!error) {
     boost::asio::async_read_until(this->socket_, this->msg, "",
-        boost::bind(&Session::handle_read, this,
-          boost::asio::placeholders::error,
-          boost::asio::placeholders::bytes_transferred));
+      boost::bind(&Session::handle_read, this,
+        boost::asio::placeholders::error,
+        boost::asio::placeholders::bytes_transferred));
   }
-  else
+  else {
     delete this;
+  }
 }
 
-static std::string  buffer_to_string(const boost::asio::streambuf &buffer){
-  using boost::asio::buffers_begin;
+void Session::set_read_callback(std::function<std::string(Session *, std::string)> read_callback) {
+  _read_callback = read_callback;
+}
 
-  auto bufs = buffer.data();
-  std::string result(buffers_begin(bufs), buffers_begin(bufs) + buffer.size());
+static std::string  buffer_to_string(boost::asio::streambuf &sbuf){
+  std::string result((std::istreambuf_iterator<char>(&sbuf)),
+                    std::istreambuf_iterator<char>());
   return result;
 }
 
 void Session::handle_read(const boost::system::error_code& error, size_t bytes_transferred){
-  if (!error)
-  {
-    boost::asio::async_write(this->socket_, this->msg,
+  if (!error) {
+    std::string res = _read_callback(this, buffer_to_string(this->msg));
+    boost::asio::streambuf sbuf;
+    std::iostream os(&sbuf);
+    os << res;
+    boost::asio::async_write(this->socket_, sbuf,
         boost::bind(&Session::handle_write, this,
           boost::asio::placeholders::error));
-    std::cout << buffer_to_string(this->msg) << std::endl;
   }
   else
     delete this;
 }
 
 void Session::handle_write(const boost::system::error_code& error){
-  if (!error)
-  {
+  if (!error) {
     boost::asio::async_read_until(this->socket_, this->msg, "",
         boost::bind(&Session::handle_read, this,
           boost::asio::placeholders::error,
