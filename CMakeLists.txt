@@ -32,6 +32,13 @@ find_package(OpenSSL REQUIRED)
 message(status "** OpenSSL Include: ${OPENSSL_INCLUDE_DIR}")
 message(status "** OpenSSL Libraries: ${OPENSSL_LIBRARIES}")
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(MONGOCXX REQUIRED libmongocxx)
+
+message(status "** MongoCXX Include: ${MONGOCXX_INCLUDE_DIRS}")
+message(status "** MongoCXX Libraries: ${MONGOCXX_LDFLAGS}")
+
+
 set			(SRC          mainTestsServer.cpp)
 set			(TEST          testssl.cpp)
 
@@ -52,13 +59,14 @@ PREPEND(TEST "msu/src" ${TEST})
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${OPENSSL_INCLUDE_DIR})
+include_directories(${MONGOCXX_INCLUDE_DIRS})
 include_directories(msu/include)
 
 #${RELEASE_SRC} ${RELEASE_MSU_SRC}
 
 add_executable(cpp_spider_server ${RELEASE_SRC} ${RELEASE_MSU_SRC})
 
-target_link_libraries(cpp_spider_server crypto ${Boost_LIBRARY_DIRS} ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES})
+target_link_libraries(cpp_spider_server crypto ${Boost_LIBRARY_DIRS} ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES} ${MONGOCXX_LDFLAGS})
 
 #######################
 # Flags
