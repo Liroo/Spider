@@ -23,8 +23,9 @@ int Key::exec(mongocxx::database, Session * session, std::string msg) {
       keys.push_back(substring);
       prev_pos = ++pos;
   }
-  keys.push_back(theKeys.substr(prev_pos, pos-prev_pos)); // Last word
+  keys.push_back(theKeys.substr(prev_pos, pos-prev_pos));
 
+////////
   std::cout << "The client [" << session->getUniqueId() << "] is using : ";
   std::cout << "Keys : ";
 
@@ -32,5 +33,6 @@ int Key::exec(mongocxx::database, Session * session, std::string msg) {
     std::cout << " " << keys.at(i);
   }
   std::cout << std::endl;
+////////
   return (0);
 }
