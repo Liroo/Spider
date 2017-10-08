@@ -17,5 +17,6 @@ int AddrMac::exec(mongocxx::database, Session * session, std::string msg) {
 
   std::cout << "The client [" << session->getUniqueId() << "] is using : ";
   std::cout << "addr_mac [" << mac << "]" << std::endl;
+  session->setMacAddress(mac);
   return (0);
 }
