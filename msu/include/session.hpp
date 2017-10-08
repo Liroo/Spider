@@ -51,6 +51,7 @@ public:
   void handle_read(const boost::system::error_code&, size_t);
   void handle_write(const boost::system::error_code&);
   ssl_socket::lowest_layer_type& socket();
+  boost::uuids::uuid getUniqueId();
 
 private:
 

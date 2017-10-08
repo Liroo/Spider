@@ -74,3 +74,7 @@ void Session::handle_write(const boost::system::error_code& error){
   else
     delete this;
 }
+
+boost::uuids::uuid Session::getUniqueId() {
+  return (this->_uniqueId);
+}
