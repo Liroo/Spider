@@ -44,6 +44,9 @@ static std::string  buffer_to_string(boost::asio::streambuf &sbuf){
   return result;
 }
 
+//
+// la le callback est fait "normallement" a check
+//
 void Session::handle_read(const boost::system::error_code& error, size_t bytes_transferred){
   if (!error) {
     std::string res = _read_callback(this, buffer_to_string(this->msg));

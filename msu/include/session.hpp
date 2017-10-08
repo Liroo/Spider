@@ -32,13 +32,11 @@
 #include <functional>
 #include <string>
 
-typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
+namespace MSU {
 
-class Session : public std::enable_shared_from_this<Session> {
+  typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
 
-public:
-  Session(boost::asio::io_service&, boost::asio::ssl::context&);
-  ~Session();
+  class Session : public std::enable_shared_from_this<Session> {
 
   void start();
   void handle_handshake(const boost::system::error_code&);
@@ -48,7 +46,7 @@ public:
   void handle_write(const boost::system::error_code&);
   ssl_socket::lowest_layer_type& socket();
 
-private:
+    private:
 
   std::function<std::string(Session *, std::string)> _read_callback;
   enum { max_length = 1024 };
@@ -57,6 +55,7 @@ private:
   std::string msg_st;
   std::string _ip;
 
+  };
 };
 
 #endif

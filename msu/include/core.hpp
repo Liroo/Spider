@@ -47,6 +47,7 @@ namespace MSU {
   public:
     typedef std::vector<MSU::Plugin*> pluginVector;
     typedef std::map<int, MSU::Core::pluginVector> pluginMap;
+
   private:
     int _serverPort;
     std::string _dbIp;
