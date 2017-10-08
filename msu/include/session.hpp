@@ -32,6 +32,10 @@
 #include <functional>
 #include <string>
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
 typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
 
 class Session : public std::enable_shared_from_this<Session> {
@@ -56,6 +60,7 @@ private:
   boost::asio::streambuf msg;
   std::string msg_st;
   std::string _ip;
+  boost::uuids::uuid _uniqueId;
 
 };
 
