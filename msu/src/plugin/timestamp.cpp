@@ -12,7 +12,7 @@ bool Timestamp::test(std::string res) {
   return (res.compare(0, name.length(), name) == 0);
 }
 
-int Timestamp::exec(Session *session, std::string msg) {
+int Timestamp::exec(mongocxx::database, Session *session, std::string msg) {
   std::cout << msg << std::endl;
   std::map<boost::uuids::uuid, std::string>::iterator it;
   for (it = lastTimestamp.begin(); it != lastTimestamp.end(); ++it){

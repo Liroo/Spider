@@ -11,7 +11,7 @@ bool AddrMac::test(std::string res) {
   return (res.compare(0, name.length(), name) == 0);
 }
 
-int AddrMac::exec(Session *, std::string) {
+int AddrMac::exec(mongocxx::database, Session *, std::string) {
   std::cout << "addr_mac" << std::endl;
   return (0);
 }

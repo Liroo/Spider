@@ -3,6 +3,10 @@
 #ifndef CORE_HPP
 # define CORE_HPP
 
+# include <mongocxx/instance.hpp>
+# include <mongocxx/pool.hpp>
+# include <mongocxx/uri.hpp>
+
 # include <string>
 # include <map>
 # include <vector>
@@ -35,7 +39,7 @@ namespace MSU {
   class Core {
 
   public:
-    Core(const int serverPort = 1024, const std::string dbIp = "localhost:27017", const std::string dbName = "tmp");
+    Core(const int serverPort = 1024, const std::string dbIp = "mongodb://localhost:27017", const std::string dbName = "tmp");
     ~Core();
   public:
     void use(MSU::Plugin*, const int);
@@ -49,10 +53,11 @@ namespace MSU {
 
   private:
     int _serverPort;
-    std::string _dbIp;
     std::string _dbName;
     boost::asio::io_service _io_service;
     MSU::Network _network;
+    mongocxx::instance _instance;
+    mongocxx::pool _pool;
 
     MSU::Core::pluginMap _plugins;
   }; // class Core

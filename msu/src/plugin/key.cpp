@@ -11,7 +11,7 @@ bool Key::test(std::string res) {
   return (res.compare(0, name.length(), name) == 0);
 }
 
-int Key::exec(Session *, std::string) {
+int Key::exec(mongocxx::database, Session *, std::string) {
   std::cout << "Key" << std::endl;
   return (0);
 }

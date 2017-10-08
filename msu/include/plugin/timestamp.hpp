@@ -18,7 +18,7 @@ public:
 
 public:
   virtual bool test(std::string);
-  virtual int exec(Session *, std::string);
+  virtual int exec(mongocxx::database, Session *, std::string);
   std::string getLastTT(Session *session);
 
 };

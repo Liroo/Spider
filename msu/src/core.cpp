@@ -17,9 +17,10 @@ static MSU::Core::pluginMap defaultPluginMap() {
 
 // constructor
 Core::Core(const int serverPort, const std::string dbIp, const std::string dbName):
-  _network(serverPort, _io_service) {
+  _network(serverPort, _io_service),
+  _instance{},
+  _pool{mongocxx::uri{dbIp}} {
   _serverPort = serverPort;
-  _dbIp = dbIp;
   _dbName = dbName;
   _plugins = defaultPluginMap();
 }
@@ -40,6 +41,8 @@ std::string Core::_handle_log(Session *s, std::string req) {
   boost::split(tokens, req, boost::is_any_of("\n\r"));
   std::string res = "";
   pluginVector::iterator it;
+  auto client = _pool.acquire();
+  mongocxx::database db = (*client)[_dbName];
 
   int next = 0;
   // how works next
@@ -52,7 +55,7 @@ std::string Core::_handle_log(Session *s, std::string req) {
     if (!tokens[i].empty()) {
       for (it = _plugins[PLUGIN_ENDPOINT].begin(); it < _plugins[PLUGIN_ENDPOINT].end(); it++) {
         if ((*it)->test(req) == true) {
-          next = (*it)->exec(s, req);
+          next = (*it)->exec(db, s, req);
           break;
         }
       }
