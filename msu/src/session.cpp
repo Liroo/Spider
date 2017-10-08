@@ -42,13 +42,17 @@ static std::string  buffer_to_string(const boost::asio::streambuf &buffer){
   return result;
 }
 
+//
+// la le callback est fait "normallement" a check
+//
 void Session::handle_read(const boost::system::error_code& error, size_t bytes_transferred){
   if (!error)
   {
-    boost::asio::async_write(this->socket_, this->msg,
-        boost::bind(&Session::handle_write, this,
-          boost::asio::placeholders::error));
-    std::cout << buffer_to_string(this->msg) << std::endl;
+    _core.callback_read(this->msg, [&](std::string result) -> void {
+      boost::asio::async_write(this->socket_, result,
+            boost::bind(&Session::handle_write, this,
+              boost::asio::placeholders::error));
+    });
   }
   else
     delete this;

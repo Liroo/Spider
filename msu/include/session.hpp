@@ -28,29 +28,32 @@
 #include <boost/bind.hpp>
 #include <boost/asio/ssl.hpp>
 
-typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
+namespace MSU {
 
-class Session : public std::enable_shared_from_this<Session> {
+  typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
 
-public:
-  Session(boost::asio::io_service&, boost::asio::ssl::context&);
-  ~Session();
+  class Session : public std::enable_shared_from_this<Session> {
 
-  void          start();
-  void          handle_handshake(const boost::system::error_code&);
-  void          handle_read(const boost::system::error_code&, size_t );
-  void          handle_write(const boost::system::error_code&);
-  ssl_socket::lowest_layer_type& socket();
+    public:
+      Session(boost::asio::io_service&, boost::asio::ssl::context&);
+      ~Session();
 
-private:
+      void          start();
+      void          handle_handshake(const boost::system::error_code&);
+      void          handle_read(const boost::system::error_code&, size_t );
+      void          handle_write(const boost::system::error_code&);
+      ssl_socket::lowest_layer_type& socket();
+
+    private:
 
 
-  enum          { max_length = 1024 };
-  ssl_socket   socket_;
-  boost::asio::streambuf msg;
-  std::string msg_st;
-  std::string _ip;
+      enum          { max_length = 1024 };
+      ssl_socket   socket_;
+      boost::asio::streambuf msg;
+      std::string msg_st;
+      std::string _ip;
 
+  };
 };
 
 #endif

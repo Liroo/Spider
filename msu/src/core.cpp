@@ -34,7 +34,19 @@ void Core::use(std::vector<MSU::pluginFunc> plugins, const int position) {
   _plugins[position].push_back(plugins);
 }
 
-void Core::_handle_session(Session *session) {}
+//
+// le std::function je sais pas comment l utiliser et quoi en faire cf: handle_read dans session
+//
+std::string Core::callback_read(std::string msg, std::function<void(std::string)> callback) {
+  // need a treatment of msg
+  return (msg);
+}
+
+
+void Core::_handle_session(Session *session) {
+  session->start();
+  // session->set_read_callback();
+}
 
 void Core::run() {
   try {

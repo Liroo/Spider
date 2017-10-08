@@ -37,16 +37,19 @@ namespace MSU {
   public:
     Core(const int serverPort = 1024, const std::string dbIp = "localhost:27017", const std::string dbName = "tmp");
     ~Core();
-  public:
+
     void use(std::vector<MSU::pluginFunc>, const int);
     // void req(); // plug-in to req a client using chrono
     void run();
     void _handle_session(Session *session);
+
+    std::string callback_read(std::string msg, std::function<void(result)> callback);
+    
   //   static requestRaw(ip, req); // static util to request a client
 
-  public:
     typedef std::vector<std::vector<MSU::pluginFunc> > pluginVector;
     typedef std::map<int, MSU::Core::pluginVector> pluginMap;
+
   private:
     int _serverPort;
     std::string _dbIp;
