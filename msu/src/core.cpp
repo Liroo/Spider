@@ -49,7 +49,7 @@ std::string Core::_handle_log(Session *s, std::string req) {
   // 2 -> error
 
   int i = 0;
-  while (i < tokens.size()) {
+  while (i < (int)tokens.size()) {
     if (!tokens[i].empty()) {
       for (it = _plugins[PLUGIN_ENDPOINT].begin(); it < _plugins[PLUGIN_ENDPOINT].end(); it++) {
         if ((*it)->test(req) == true) {
