@@ -13,5 +13,5 @@ bool Timestamp::test(std::string res) {
 
 int Timestamp::exec(std::string) {
   std::cout << "Timestamp" << std::endl;
-  return (0);
+  return (1);
 }
