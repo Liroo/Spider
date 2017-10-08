@@ -60,9 +60,9 @@ std::string Core::_handle_log(Session *s, std::string req) {
       if (it == _plugins[PLUGIN_ENDPOINT].end()) {
         res += "UNKOWN\n";
       } else if (next == 0) {
-        res += "OK";
+        res += "OK\n";
       } else if (next == 2) {
-        res += "KO";
+        res += "KO\n";
       }
     }
     i++;
