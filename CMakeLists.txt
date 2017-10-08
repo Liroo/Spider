@@ -39,7 +39,11 @@ set			(MSU_SRC      core.cpp
                       network.cpp
                       session.cpp
                       plugin/key.cpp
-                      plugin/timestamp.cpp)
+                      plugin/timestamp.cpp
+                      plugin/mouse.cpp
+                      plugin/process.cpp
+                      plugin/addrMac.cpp
+        )
 
 
 PREPEND(RELEASE_SRC "server/src" ${SRC})

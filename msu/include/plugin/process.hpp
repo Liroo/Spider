@@ -1,13 +1,13 @@
-#ifndef ADDRMAC_HPP
-# define ADDRMAC_HPP
+#ifndef PROCESS_HPP
+# define PROCESS_HPP
 
 # include <string>
 # include "plugin.hpp"
 
-class AddrMac: public MSU::Plugin {
+class Process: public MSU::Plugin {
 public:
-  AddrMac();
-  ~AddrMac();
+  Process();
+  ~Process();
 public:
   std::string name;
 public:

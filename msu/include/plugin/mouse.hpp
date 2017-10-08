@@ -1,13 +1,13 @@
-#ifndef ADDRMAC_HPP
-# define ADDRMAC_HPP
+#ifndef MOUSE_HPP
+# define MOUSE_HPP
 
 # include <string>
 # include "plugin.hpp"
 
-class AddrMac: public MSU::Plugin {
+class Mouse: public MSU::Plugin {
 public:
-  AddrMac();
-  ~AddrMac();
+  Mouse();
+  ~Mouse();
 public:
   std::string name;
 public:
