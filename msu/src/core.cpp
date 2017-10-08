@@ -53,7 +53,7 @@ std::string Core::_handle_log(Session *s, std::string req) {
     if (!tokens[i].empty()) {
       for (it = _plugins[PLUGIN_ENDPOINT].begin(); it < _plugins[PLUGIN_ENDPOINT].end(); it++) {
         if ((*it)->test(req) == true) {
-          next = (*it)->exec(req);
+          next = (*it)->exec(s, req);
           break;
         }
       }

@@ -12,7 +12,7 @@ public:
   std::string name;
 public:
   virtual bool test(std::string);
-  virtual int exec(std::string);
+  virtual int exec(Session *, std::string);
 };
 
 #endif
